@@ -1,0 +1,75 @@
+{
+  "name": "vite-noir",
+  "version": "0.1.0",
+  "description": "Build-time dark mode CSS generation for Vite using DarkReader's color transformation algorithm",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./postcss": {
+      "import": "./dist/postcss.js",
+      "types": "./dist/postcss.d.ts"
+    },
+    "./transform": {
+      "import": "./dist/transform.js",
+      "types": "./dist/transform.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "vite",
+    "vite-plugin",
+    "postcss",
+    "postcss-plugin",
+    "dark-mode",
+    "darkmode",
+    "dark-theme",
+    "darkreader",
+    "css",
+    "color-transform"
+  ],
+  "author": "Crisp IM SAS",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nicemicro/vite-noir.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nicemicro/vite-noir/issues"
+  },
+  "homepage": "https://github.com/nicemicro/vite-noir#readme",
+  "peerDependencies": {
+    "vite": ">=4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "vite": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "eslint": "^9.0.0",
+    "eslint-plugin-crisp": "^1.0.0",
+    "postcss": "^8.4.35",
+    "tsup": "^8.0.0",
+    "typescript": "^5.3.0",
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "postcss": "^8.4.35"
+  }
+}
