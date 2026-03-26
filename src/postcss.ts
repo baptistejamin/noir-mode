@@ -86,7 +86,11 @@ function noirPostcss(options: NoirPostcssOptions = {}): Plugin {
           const darkRule = rule.clone({ selector: darkSelector });
           darkRule.removeAll();
           for (const { prop, value, important } of darkDecls) {
-            darkRule.append({ prop, value, important });
+            const decl = rule.first?.clone({ prop, value, important }) || { prop, value, important };
+            if ("source" in decl && rule.source) {
+              decl.source = rule.source;
+            }
+            darkRule.append(decl);
           }
           newRules.push({ after: rule, darkRule });
         }

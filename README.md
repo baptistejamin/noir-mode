@@ -1,4 +1,4 @@
-# vite-noir
+# noir-mode
 
 Build-time dark mode CSS generation for Vite. Automatically transforms your CSS colors into dark mode variants using DarkReader's color algorithm.
 
@@ -13,7 +13,7 @@ Build-time dark mode CSS generation for Vite. Automatically transforms your CSS 
 ## Installation
 
 ```bash
-npm install vite-noir
+npm install noir-mode
 ```
 
 ## Usage
@@ -24,7 +24,7 @@ The simplest way to use vite-noir is as a Vite plugin:
 
 ```javascript
 // vite.config.js
-import noir from "vite-noir";
+import noir from "noir-mode";
 
 export default {
   plugins: [
@@ -45,7 +45,7 @@ You can also use it directly as a PostCSS plugin:
 
 ```javascript
 // vite.config.js
-import { noirPostcss } from "vite-noir/postcss";
+import { noirPostcss } from "noir-mode/postcss";
 
 export default {
   css: {
@@ -65,7 +65,7 @@ export default {
 For inline styles that can't be processed at build time (e.g., dynamic colors in Vue/React components):
 
 ```javascript
-import { transformColor, setDarkMode } from "vite-noir/transform";
+import { transformColor, setDarkMode } from "noir-mode/transform";
 
 // Call this when dark mode is toggled
 setDarkMode(true);
@@ -80,7 +80,7 @@ const darkColor = transformColor("#ffffff", "background-color");
 
 ```vue
 <script>
-import { transformColor } from "vite-noir/transform";
+import { transformColor } from "noir-mode/transform";
 
 export default {
   props: {
@@ -139,15 +139,15 @@ vite-noir scans your CSS for color properties and generates corresponding dark m
 
 ## API
 
-### `vite-noir` (default export)
+### `noir-mode` (default export)
 
 Vite plugin that automatically configures PostCSS.
 
-### `vite-noir/postcss`
+### `noir-mode/postcss`
 
 - `noirPostcss(options)` - PostCSS plugin
 
-### `vite-noir/transform`
+### `noir-mode/transform`
 
 - `transformColor(color, property, theme?)` - Transform color (respects dark mode state)
 - `transformColorRaw(color, property, theme?)` - Always transform (for build-time use)

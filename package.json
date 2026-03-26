@@ -1,5 +1,5 @@
 {
-  "name": "vite-noir",
+  "name": "noir-mode",
   "version": "0.1.0",
   "description": "Build-time dark mode CSS generation for Vite using DarkReader's color transformation algorithm",
   "type": "module",
