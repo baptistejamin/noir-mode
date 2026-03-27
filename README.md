@@ -60,6 +60,39 @@ export default {
 };
 ```
 
+### Ignoring Files and Selectors
+
+You can exclude certain CSS files or selectors from being processed:
+
+```javascript
+// vite.config.js
+import { noirPostcss } from "noir-mode/postcss";
+
+export default {
+  css: {
+    postcss: {
+      plugins: [
+        noirPostcss({
+          // Skip files whose path contains these strings
+          ignore: [
+            "vendor",
+            "third-party"
+          ],
+          // Skip rules whose selector contains these strings
+          ignoreSelectors: [
+            ".external-widget",
+            ".third-party-component",
+            "#legacy-module"
+          ]
+        }),
+      ],
+    },
+  },
+};
+```
+
+This is useful when you have third-party CSS that already handles its own dark mode, or legacy code that shouldn't be transformed.
+
 ### Runtime Transform
 
 For inline styles that can't be processed at build time (e.g., dynamic colors in Vue/React components):
@@ -130,6 +163,8 @@ vite-noir scans your CSS for color properties and generates corresponding dark m
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
 | `darkModeSelector` | `string` | `".dark-mode"` | CSS selector to prefix dark mode rules |
+| `ignore` | `string[]` | `[]` | Skip files whose path contains any of these strings |
+| `ignoreSelectors` | `string[]` | `[]` | Skip rules whose selector contains any of these strings |
 | `theme.darkSchemeBackgroundColor` | `string` | `"#181a1b"` | Target background color for dark mode |
 | `theme.darkSchemeTextColor` | `string` | `"#e8e6e3"` | Target text color for dark mode |
 | `theme.brightness` | `number` | `100` | Brightness adjustment (0-200) |

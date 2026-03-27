@@ -14,6 +14,8 @@ import { transformColorRaw, DEFAULT_THEME, type NoirTheme } from "./transform.js
 export interface NoirPostcssOptions {
   darkModeSelector?: string;
   theme?: Partial<NoirTheme>;
+  ignore?: string[];
+  ignoreSelectors?: string[];
 }
 
 /**************************************************************************
@@ -51,7 +53,7 @@ function transformValue(value: string, property: string, theme: NoirTheme): stri
 }
 
 function noirPostcss(options: NoirPostcssOptions = {}): Plugin {
-  const { darkModeSelector = ".dark-mode", theme: userTheme = {} } = options;
+  const { darkModeSelector = ".dark-mode", theme: userTheme = {}, ignore = [], ignoreSelectors = [] } = options;
   const theme: NoirTheme = { ...DEFAULT_THEME, ...userTheme };
 
   return {
@@ -59,9 +61,22 @@ function noirPostcss(options: NoirPostcssOptions = {}): Plugin {
     Once(root: Root) {
       const newRules: Array<{ after: Rule; darkRule: Rule }> = [];
 
+      // Get source file path for ignore matching
+      const sourceFile = root.source?.input?.file || "";
+
+      // Check if this file should be ignored
+      if (ignore.some((pattern) => sourceFile.includes(pattern))) {
+        return;
+      }
+
       root.walkRules((rule: Rule) => {
         if (rule.selector.includes(darkModeSelector) ||
             (rule.parent?.type === "atrule" && (rule.parent as { name?: string }).name === "keyframes")) {
+          return;
+        }
+
+        // Skip selectors matching ignore patterns
+        if (ignoreSelectors.some((pattern) => rule.selector.includes(pattern))) {
           return;
         }
 
